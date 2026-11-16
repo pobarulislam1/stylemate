@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#f4f6fb",
-  viewportFit: "cover",
+  viewportFit: "cover", // নচওয়ালা ফোনে পুরো স্ক্রিন
 };
 
 export default function RootLayout({

@@ -1,8 +1,12 @@
-const COLORS = [
-  "#1f2f5c", "#7a1f2b", "#1f6b4f", "#c0892c", "#b3202e", "#2f5aa8",
-  "#5b6b3a", "#8a5a3b", "#222222", "#d8c3a0", "#6aa3d9", "#f08cb0",
-  "#3b2f63", "#0f5c4d", "#e0526f", "#9a9ea6",
-];
+import { SAMPLE_ITEMS } from "./lib/data";
+import { bn } from "./lib/format";
+import { CATEGORIES, categoryLabel } from "./lib/options";
+
+
+const counts = CATEGORIES.map((c) => ({
+  ...c,
+  n: SAMPLE_ITEMS.filter((i) => i.category === c.key).length,
+}));
 
 function Device() {
   return (
@@ -48,32 +52,56 @@ export default function Home() {
       <main className="page pb-28 pt-6 lg:pb-12 lg:pt-8">
         <h2 className="fluid-h1 font-display">সব ডিভাইসে পুরো স্ক্রিন জুড়ে</h2>
         <p className="mt-2 max-w-2xl text-muted">
-          ব্রাউজার উইন্ডো ছোট-বড় করে বা F12 চেপে ফোন মোড দিয়ে দেখুন: কলাম সংখ্যা,
-          মেনু ও ফাঁকা জায়গা নিজে বদলাবে।
+          মোট {bn(SAMPLE_ITEMS.length)}টি নমুনা পোশাক, {bn(CATEGORIES.length)}টি
+          ক্যাটাগরি। উইন্ডো ছোট-বড় করে বা F12 চেপে ফোন মোড দিয়ে দেখুন।
         </p>
 
         <div className="mt-6 lg:grid lg:grid-cols-[18rem_1fr] lg:gap-8">
-          {/* ল্যাপটপ থেকে বাঁয়ে ফিল্টারের জায়গা */}
+          {/* ল্যাপটপ থেকে বাঁয়ে ক্যাটাগরি তালিকা */}
           <aside className="hidden lg:block">
             <div className="soft-shadow sticky top-6 rounded-3xl border border-line bg-white p-5">
-              <h3 className="font-display text-xl">ফিল্টার</h3>
-              <p className="mt-2 text-sm text-muted">
-                এখানে ফিল্টার বসবে (ল্যাপটপ ও বড় স্ক্রিনে)।
-              </p>
+              <h3 className="font-display text-xl">ক্যাটাগরি</h3>
+              <ul className="mt-3 space-y-1.5">
+                {counts.map((c) => (
+                  <li
+                    key={c.key}
+                    className="flex items-center justify-between text-sm"
+                  >
+                    <span>{c.label}</span>
+                    <span className="rounded-full bg-brand-soft px-2 py-0.5 text-xs font-semibold text-brand">
+                      {bn(c.n)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </aside>
 
           <section className="min-w-0">
+            {/* ছোট স্ক্রিনে ক্যাটাগরি ট্যাগ */}
+            <div className="no-scrollbar mb-4 flex gap-2 overflow-x-auto lg:hidden">
+              {counts.map((c) => (
+                <span
+                  key={c.key}
+                  className="shrink-0 rounded-full bg-brand-soft px-3 py-1 text-sm font-semibold text-brand"
+                >
+                  {c.label} · {bn(c.n)}
+                </span>
+              ))}
+            </div>
+
             <div className="auto-grid">
-              {COLORS.map((c, i) => (
+              {SAMPLE_ITEMS.map((i) => (
                 <div
-                  key={c}
+                  key={i.id}
                   className="soft-shadow overflow-hidden rounded-3xl border border-line bg-white"
                 >
-                  <div className="aspect-[4/5]" style={{ background: c }} />
+                  <div className="aspect-[4/5]" style={{ background: i.color }} />
                   <div className="p-3">
-                    <p className="font-semibold">নমুনা {i + 1}</p>
-                    <p className="text-xs text-muted">{c}</p>
+                    <p className="font-semibold leading-tight">{i.name}</p>
+                    <p className="text-xs text-muted">
+                      {categoryLabel(i.category)}
+                    </p>
                   </div>
                 </div>
               ))}

@@ -11,11 +11,16 @@
   --color-rose: #e0526f;
 }
 
+/* ====== মূল সেটআপ ====== */
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
+  min-height: 100dvh;
+  overflow-x: clip;
+  /* পাশে স্ক্রল আসবে না */
   color: var(--color-ink);
   background:
     radial-gradient(1100px 420px at 50% -180px, #dfe5fb 0%, transparent 70%),
@@ -42,6 +47,77 @@ body {
   display: none;
 }
 
+/* ====== সব ডিভাইসের জন্য ফুল-উইডথ লেআউট ====== */
+
+/* পেজ কন্টেইনার: পুরো প্রস্থ, নচ-সুরক্ষিত ফাঁকা জায়গা */
+.page {
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+@media (min-width: 640px) {
+  .page {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+}
+
+@media (min-width: 1024px) {
+  .page {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .page {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+/* পোশাকের গ্রিড: স্ক্রিন অনুযায়ী কলাম নিজে ঠিক হয় */
+.auto-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+}
+
+@media (min-width: 640px) {
+  .auto-grid {
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .auto-grid {
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  }
+}
+
+@media (min-width: 1536px) {
+  .auto-grid {
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  }
+}
+
+/* নিচের বারের জন্য নিরাপদ জায়গা (নচ/হোম বার সহ ফোনে) */
+.pb-safe {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+/* স্ক্রিন অনুযায়ী ফ্লুইড শিরোনাম */
+.fluid-h1 {
+  font-size: clamp(1.9rem, 1.3rem + 2.4vw, 3.4rem);
+  line-height: 1.1;
+}
+
+/* ====== অ্যানিমেশন ====== */
 @keyframes rise {
   from {
     opacity: 0;
@@ -101,83 +177,3 @@ a:focus-visible {
     scroll-behavior: auto !important;
   }
 }
-
-
-/* ====== সব ডিভাইসের জন্য ফুল-উইডথ লেআউট ====== */
-html {
-  -webkit-text-size-adjust: 100%;
-}
-
-body {
-  min-height: 100dvh;
-  overflow-x: clip;
-}
-
-/* পেজের কন্টেইনার: পুরো প্রস্থ, নচ-সুরক্ষিত ফাঁকা জায়গা */
-.page {
-  width: 90%;
-  max-width: 1920px;
-  margin-inline: auto;
-  padding-left: max(1rem, env(safe-area-inset-left));
-  padding-right: max(1rem, env(safe-area-inset-right));
-}
-
-@media (min-width: 640px) {
-  .page {
-    padding-left: max(1.5rem, env(safe-area-inset-left));
-    padding-right: max(1.5rem, env(safe-area-inset-right));
-  }
-}
-
-@media (min-width: 1024px) {
-  .page {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-  }
-}
-
-@media (min-width: 1536px) {
-  .page {
-    padding-left: 4rem;
-    padding-right: 4rem;
-  }
-}
-
-/* পোশাকের গ্রিড: স্ক্রিন অনুযায়ী কলাম নিজে ঠিক হয় */
-.auto-grid {
-  display: grid;
-  gap: 0.75rem;
-  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
-}
-
-@media (min-width: 640px) {
-  .auto-grid {
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
-  }
-}
-
-@media (min-width: 1280px) {
-  .auto-grid {
-    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
-  }
-}
-
-@media (min-width: 1536px) {
-  .auto-grid {
-    gap: 1.25rem;
-    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-  }
-}
-
-/* নিচের বারের জন্য নিরাপদ জায়গা */
-.pb-safe {
-  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
-}
-
-/* স্ক্রিন অনুযায়ী ফ্লুইড শিরোনাম */
-.fluid-h1 {
-  font-size: clamp(1.9rem, 1.3rem + 2.4vw, 3.4rem);
-  line-height: 1.1;
-}
-
