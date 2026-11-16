@@ -1,69 +1,101 @@
-import Image from "next/image";
+const COLORS = [
+  "#1f2f5c", "#7a1f2b", "#1f6b4f", "#c0892c", "#b3202e", "#2f5aa8",
+  "#5b6b3a", "#8a5a3b", "#222222", "#d8c3a0", "#6aa3d9", "#f08cb0",
+  "#3b2f63", "#0f5c4d", "#e0526f", "#9a9ea6",
+];
+
+function Device() {
+  return (
+    <span className="rounded-full bg-brand-soft px-3 py-1 text-sm font-semibold text-brand">
+      <span className="sm:hidden">📱 মোবাইল</span>
+      <span className="hidden sm:inline md:hidden">📱 বড় মোবাইল</span>
+      <span className="hidden md:inline lg:hidden">📲 ট্যাবলেট</span>
+      <span className="hidden lg:inline xl:hidden">💻 ল্যাপটপ</span>
+      <span className="hidden xl:inline 2xl:hidden">🖥️ ডেস্কটপ</span>
+      <span className="hidden 2xl:inline">🖥️ বড় ডেস্কটপ</span>
+    </span>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      {/* হেডার */}
+      <header className="border-b border-line bg-white/80 backdrop-blur-md">
+        <div className="page flex h-16 items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="grid h-10 w-10 place-items-center rounded-2xl bg-brand text-lg text-gold shadow-lg shadow-brand/30">
+              ✦
+            </div>
+            <h1 className="font-display text-2xl">স্টাইলমেট</h1>
+          </div>
+
+          <nav className="hidden items-center gap-1 lg:flex">
+            {["ক্যাটালগ", "সেভ করা", "কালেকশন"].map((t) => (
+              <span
+                key={t}
+                className="rounded-full px-4 py-2 text-sm font-semibold text-muted"
+              >
+                {t}
+              </span>
+            ))}
+          </nav>
+
+          <Device />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </header>
+
+      <main className="page pb-28 pt-6 lg:pb-12 lg:pt-8">
+        <h2 className="fluid-h1 font-display">সব ডিভাইসে পুরো স্ক্রিন জুড়ে</h2>
+        <p className="mt-2 max-w-2xl text-muted">
+          ব্রাউজার উইন্ডো ছোট-বড় করে বা F12 চেপে ফোন মোড দিয়ে দেখুন: কলাম সংখ্যা,
+          মেনু ও ফাঁকা জায়গা নিজে বদলাবে।
+        </p>
+
+        <div className="mt-6 lg:grid lg:grid-cols-[18rem_1fr] lg:gap-8">
+          {/* ল্যাপটপ থেকে বাঁয়ে ফিল্টারের জায়গা */}
+          <aside className="hidden lg:block">
+            <div className="soft-shadow sticky top-6 rounded-3xl border border-line bg-white p-5">
+              <h3 className="font-display text-xl">ফিল্টার</h3>
+              <p className="mt-2 text-sm text-muted">
+                এখানে ফিল্টার বসবে (ল্যাপটপ ও বড় স্ক্রিনে)।
+              </p>
+            </div>
+          </aside>
+
+          <section className="min-w-0">
+            <div className="auto-grid">
+              {COLORS.map((c, i) => (
+                <div
+                  key={c}
+                  className="soft-shadow overflow-hidden rounded-3xl border border-line bg-white"
+                >
+                  <div className="aspect-[4/5]" style={{ background: c }} />
+                  <div className="p-3">
+                    <p className="font-semibold">নমুনা {i + 1}</p>
+                    <p className="text-xs text-muted">{c}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
         </div>
       </main>
-    </div>
+
+      {/* ছোট স্ক্রিনের নিচের নেভিগেশন */}
+      <nav className="pb-safe fixed inset-x-0 bottom-0 z-20 border-t border-line bg-white/90 px-4 pt-2 backdrop-blur-md lg:hidden">
+        <div className="mx-auto flex max-w-md gap-2">
+          {["👗 ক্যাটালগ", "♥ সেভ করা", "✦ কালেকশন"].map((t, i) => (
+            <span
+              key={t}
+              className={`flex-1 rounded-full py-2.5 text-center text-sm font-semibold ${i === 0 ? "bg-brand text-white" : "text-muted"
+                }`}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      </nav>
+    </>
   );
 }

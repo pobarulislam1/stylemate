@@ -1,26 +1,183 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-ivory: #f4f6fb;
+  --color-ink: #1a1d2e;
+  --color-muted: #6b7085;
+  --color-line: #e3e7f1;
+  --color-brand: #2c2f7a;
+  --color-brand-soft: #eaedfb;
+  --color-gold: #c0892c;
+  --color-rose: #e0526f;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-ink);
+  background:
+    radial-gradient(1100px 420px at 50% -180px, #dfe5fb 0%, transparent 70%),
+    radial-gradient(rgba(44, 47, 122, 0.05) 1px, transparent 1px) 0 0 / 24px 24px,
+    var(--color-ivory);
+  -webkit-font-smoothing: antialiased;
 }
+
+.font-display {
+  font-family: var(--font-display), serif;
+}
+
+.soft-shadow {
+  box-shadow:
+    0 1px 2px rgba(26, 29, 46, 0.04),
+    0 10px 24px -14px rgba(44, 47, 122, 0.28);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sheet {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.anim-rise {
+  animation: rise 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.anim-sheet {
+  animation: sheet 0.34s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.anim-fade {
+  animation: fade 0.25s ease-out both;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ====== সব ডিভাইসের জন্য ফুল-উইডথ লেআউট ====== */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  overflow-x: clip;
+}
+
+/* পেজের কন্টেইনার: পুরো প্রস্থ, নচ-সুরক্ষিত ফাঁকা জায়গা */
+.page {
+  width: 90%;
+  max-width: 1920px;
+  margin-inline: auto;
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+@media (min-width: 640px) {
+  .page {
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+  }
+}
+
+@media (min-width: 1024px) {
+  .page {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .page {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+/* পোশাকের গ্রিড: স্ক্রিন অনুযায়ী কলাম নিজে ঠিক হয় */
+.auto-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+}
+
+@media (min-width: 640px) {
+  .auto-grid {
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .auto-grid {
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  }
+}
+
+@media (min-width: 1536px) {
+  .auto-grid {
+    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  }
+}
+
+/* নিচের বারের জন্য নিরাপদ জায়গা */
+.pb-safe {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+/* স্ক্রিন অনুযায়ী ফ্লুইড শিরোনাম */
+.fluid-h1 {
+  font-size: clamp(1.9rem, 1.3rem + 2.4vw, 3.4rem);
+  line-height: 1.1;
+}
+
